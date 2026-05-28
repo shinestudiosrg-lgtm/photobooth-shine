@@ -1,252 +1,636 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shine Photobooth</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shine Photobooth</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  scroll-behavior: smooth;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* NAVBAR */
-nav {
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(10px);
-  padding: 10px 20px;
-  border-radius: 30px;
-  z-index: 1000;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fffaf7, #fff0f5, #fffaf7);
+      color: #2d2727;
+    }
 
-nav a {
-  margin: 0 8px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* HERO */
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-.box {
-  width: 100%;
-  max-width: 1100px;
-  background: #f8d7da;
-  border-radius: 25px;
-  padding: 40px;
-  position: relative;
-  text-align: center;
-  overflow: hidden;
-  cursor: pointer;
-}
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
 
-/* BLUR */
-.box::before {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, #ff4d6d, transparent);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  filter: blur(90px);
-}
+    nav {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(900px, 92%);
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-/* TEXT */
-.box h1 {
-  font-size: 40px;
-  position: relative;
-}
+    .logo {
+      font-weight: 700;
+      color: #d96b83;
+      white-space: nowrap;
+    }
 
-.box p {
-  margin-top: 10px;
-  opacity: 0.7;
-  position: relative;
-}
+    .nav-menu {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
-/* FLOAT FOTO */
-.photo {
-  position: absolute;
-  width: 120px;
-  border-radius: 10px;
-  animation: float 4s ease-in-out infinite;
-}
+    .nav-menu a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
 
-.left {
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-10deg);
-}
+    .nav-menu a:hover,
+    .nav-menu .booking {
+      background: #d96b83;
+      color: white;
+    }
 
-.right {
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%) rotate(10deg);
-}
+    .hero {
+      min-height: 100vh;
+      padding: 120px 0 70px;
+      display: grid;
+      place-items: center;
+    }
 
-@keyframes float {
-  0%,100% { transform: translateY(-50%) translateY(0); }
-  50% { transform: translateY(-50%) translateY(-15px); }
-}
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 35px;
+      align-items: center;
+      padding: 45px;
+      border-radius: 35px;
+      background: rgba(255,255,255,0.75);
+      box-shadow: 0 25px 70px rgba(217,107,131,0.22);
+      overflow: hidden;
+      position: relative;
+    }
 
-/* SECTION */
-section {
-  padding: 80px 20px;
-  text-align: center;
-}
+    .hero-box::before {
+      content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      background: radial-gradient(circle, #ffc4d0, transparent 65%);
+      top: -120px;
+      right: -110px;
+      filter: blur(20px);
+    }
 
-/* GALLERY */
-#portfolio {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .hero-text,
+    .hero-preview {
+      position: relative;
+      z-index: 1;
+    }
 
-#portfolio img {
-  width: 45%;
-  max-width: 220px;
-  margin: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-}
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: white;
+      color: #d96b83;
+      font-weight: 600;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
 
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
 
-.modal img {
-  width: 90%;
-  margin: 100px auto;
-  display: block;
-}
+    .hero-text p {
+      color: #746969;
+      line-height: 1.8;
+      margin-bottom: 26px;
+      font-size: 17px;
+    }
 
-.modal:target {
-  display: block;
-}
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-/* PRICELIST */
-.pricing {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .btn {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.3s;
+    }
 
-.card {
-  background: #eee;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 10px;
-  width: 250px;
-}
+    .btn-primary {
+      background: linear-gradient(135deg, #d96b83, #f1a3b3);
+      color: white;
+      box-shadow: 0 12px 25px rgba(217,107,131,0.3);
+    }
 
-/* CONTACT */
-.contact a {
-  display: block;
-  margin: 10px;
-}
+    .btn-secondary {
+      background: white;
+      color: #7d5320;
+      border: 1px solid rgba(199,154,69,0.35);
+    }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .photo {
-    display: none;
-  }
+    .btn:hover {
+      transform: translateY(-3px);
+    }
 
-  .box h1 {
-    font-size: 28px;
-  }
+    .photo-strip {
+      width: min(270px, 80vw);
+      padding: 14px;
+      border-radius: 28px;
+      background: white;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+      transform: rotate(3deg);
+      animation: float 4s ease-in-out infinite;
+    }
 
-  #portfolio img {
-    width: 80%;
-  }
-}
-</style>
+    .photo-strip img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      background: #f8d7da;
+    }
 
+    .photo-strip img:last-child {
+      margin-bottom: 0;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(3deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(1deg);
+      }
+    }
+
+    section {
+      padding: 85px 0;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title span {
+      color: #d96b83;
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      margin-top: 8px;
+    }
+
+    .title p {
+      max-width: 650px;
+      margin: 12px auto 0;
+      color: #746969;
+      line-height: 1.7;
+    }
+
+    .features,
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature,
+    .card {
+      background: rgba(255,255,255,0.8);
+      padding: 26px;
+      border-radius: 28px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.07);
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .feature p,
+    .card li {
+      color: #746969;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .gallery a {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+
+    .gallery a:hover img {
+      transform: scale(1.08);
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 800;
+      color: #d96b83;
+      margin: 12px 0;
+    }
+
+    .card ul {
+      list-style: none;
+      margin: 18px 0 24px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .card li::before {
+      content: "✓ ";
+      color: #d96b83;
+      font-weight: 800;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      padding: 32px;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 25px 70px rgba(217,107,131,0.18);
+      align-items: center;
+    }
+
+    .contact-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      margin-bottom: 14px;
+    }
+
+    .contact-box p {
+      color: #746969;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-links a {
+      background: white;
+      padding: 16px;
+      border-radius: 18px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .contact-photo {
+      min-height: 330px;
+      border-radius: 26px;
+      background:
+        linear-gradient(rgba(217,107,131,0.18), rgba(255,255,255,0.2)),
+        url('1.jpg') center/cover;
+      display: grid;
+      place-items: end center;
+      padding: 18px;
+    }
+
+    .contact-note {
+      width: 100%;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.88);
+      text-align: center;
+      font-weight: 800;
+      color: #d96b83;
+    }
+
+    .wa-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #25D366;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 12px 28px rgba(37,211,102,0.35);
+      z-index: 1000;
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: #746969;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-box,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .features,
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        align-items: flex-start;
+        border-radius: 22px;
+      }
+
+      .logo {
+        font-size: 13px;
+        padding-top: 8px;
+      }
+
+      .nav-menu a {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+
+      .hero-box {
+        padding: 26px 20px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-box h2 {
+        font-size: 34px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#portfolio">Portfolio</a>
-  <a href="#pricelist">Pricelist</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <nav>
+    <a href="#home" class="logo">Shine Photobooth</a>
 
-<!-- HERO KLIK KE WA -->
-<div class="hero" id="home">
-  <a href="https://wa.me/6283894036552" style="text-decoration:none; color:inherit;">
-    <div class="box">
+    <div class="nav-menu">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricelist">Pricelist</a>
+      <a href="#contact" class="booking">Booking</a>
+    </div>
+  </nav>
 
-      <img src="1.jpg" class="photo left">
-      <img src="2.jpg" class="photo right">
+  <a class="wa-float" href="https://wa.me/6283894036552?text=Halo%20Shine%20Photobooth%2C%20saya%20mau%20booking%20photobooth">
+    ☘
+  </a>
 
-      <h1>Shine Photobooth</h1>
-      <p>Klik di sini untuk booking via WhatsApp ✨</p>
+  <header class="hero" id="home">
+    <div class="container">
+      <div class="hero-box">
+
+        <div class="hero-text">
+          <div class="badge">✨ Photobooth estetik untuk acara spesial</div>
+
+          <h1>Shine Photobooth</h1>
+
+          <p>
+            Abadikan momen wedding, birthday, gathering, dan event spesial
+            dengan hasil foto cantik, rapi, dan siap dibagikan.
+          </p>
+
+          <div class="buttons">
+            <a class="btn btn-primary" href="https://wa.me/6283894036552?text=Halo%20Shine%20Photobooth%2C%20saya%20mau%20booking%20photobooth">
+              Booking via WhatsApp
+            </a>
+
+            <a class="btn btn-secondary" href="#portfolio">
+              Lihat Portfolio
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-preview">
+          <div class="photo-strip">
+            <img src="1.jpg" alt="Foto photobooth 1">
+            <img src="2.jpg" alt="Foto photobooth 2">
+            <img src="3.jpg" alt="Foto photobooth 3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+
+      <div class="title">
+        <span>Kenapa pilih kami</span>
+        <h2>Simple, cantik, dan memorable</h2>
+        <p>
+          Kami bantu bikin acara terlihat lebih hidup dengan booth menarik,
+          template estetik, dan proses booking yang mudah.
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="icon">📸</div>
+          <h3>Foto Jernih</h3>
+          <p>Hasil foto cocok untuk wedding, birthday, graduation, dan corporate event.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">🎀</div>
+          <h3>Template Custom</h3>
+          <p>Frame foto bisa disesuaikan dengan tema dan warna acara kamu.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">⚡</div>
+          <h3>Praktis</h3>
+          <p>Tamu bisa langsung berfoto dan membawa kenangan dari acara kamu.</p>
+        </div>
+      </div>
 
     </div>
-  </a>
-</div>
+  </section>
 
-<section id="portfolio">
-  <h2>Portfolio</h2>
+  <section id="portfolio">
+    <div class="container">
 
-  <a href="#img1"><img src="1.jpg"></a>
-  <a href="#img2"><img src="2.jpg"></a>
-  <a href="#img3"><img src="3.jpg"></a>
+      <div class="title">
+        <span>Portfolio</span>
+        <h2>Contoh hasil photobooth</h2>
+        <p>Ganti file 1.jpg, 2.jpg, dan 3.jpg dengan foto portfolio asli kamu.</p>
+      </div>
 
-  <div id="img1" class="modal"><img src="1.jpg"></div>
-  <div id="img2" class="modal"><img src="2.jpg"></div>
-  <div id="img3" class="modal"><img src="3.jpg"></div>
-</section>
+      <div class="gallery">
+        <a href="1.jpg"><img src="1.jpg" alt="Portfolio 1"></a>
+        <a href="2.jpg"><img src="2.jpg" alt="Portfolio 2"></a>
+        <a href="3.jpg"><img src="3.jpg" alt="Portfolio 3"></a>
+      </div>
 
-<section id="pricelist" class="pricing">
-  <div class="card">
-    <h3>Basic</h3>
-    <p>Rp 500K</p>
-  </div>
+    </div>
+  </section>
 
-  <div class="card">
-    <h3>Premium</h3>
-    <p>Rp 1.000K</p>
-  </div>
-</section>
+  <section id="pricelist">
+    <div class="container">
 
-<section id="contact" class="contact">
-  <h2>Contact</h2>
+      <div class="title">
+        <span>Paket</span>
+        <h2>Pricelist Photobooth</h2>
+        <p>Pilih paket yang sesuai kebutuhan acara kamu.</p>
+      </div>
 
-  <a href="https://wa.me/6283894036552">WhatsApp</a>
-  <a href="https://www.instagram.com/shine.photostudio_id">Instagram</a>
-  <a href="https://www.tiktok.com/@shine.photostudio_id">TikTok</a>
-</section>
+      <div class="pricing">
+
+        <div class="card">
+          <h3>Basic</h3>
+          <div class="price">Rp 500K</div>
+          <ul>
+            <li>Durasi event singkat</li>
+            <li>Template basic</li>
+            <li>File foto digital</li>
+          </ul>
+          <a class="btn btn-secondary" href="https://wa.me/6283894036552?text=Halo%2C%20saya%20mau%20tanya%20Paket%20Basic">
+            Tanya Paket
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Premium</h3>
+          <div class="price">Rp 1.000K</div>
+          <ul>
+            <li>Durasi lebih panjang</li>
+            <li>Template custom</li>
+            <li>Properti photobooth</li>
+          </ul>
+          <a class="btn btn-primary" href="https://wa.me/6283894036552?text=Halo%2C%20saya%20mau%20booking%20Paket%20Premium">
+            Booking
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Custom Event</h3>
+          <div class="price">Chat</div>
+          <ul>
+            <li>Untuk wedding/corporate</li>
+            <li>Konsep menyesuaikan</li>
+            <li>Support kebutuhan acara</li>
+          </ul>
+          <a class="btn btn-secondary" href="https://wa.me/6283894036552?text=Halo%2C%20saya%20mau%20tanya%20Paket%20Event">
+            Konsultasi
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+
+      <div class="contact-box">
+
+        <div>
+          <h2>Siap bikin acaramu makin berkesan?</h2>
+
+          <p>
+            Hubungi Shine Photobooth untuk cek jadwal, harga,
+            dan konsep photobooth yang cocok.
+          </p>
+
+          <div class="contact-links">
+            <a href="https://wa.me/6283894036552">💬 WhatsApp: 0838-9403-6552</a>
+            <a href="https://www.instagram.com/shine.photostudio_id">📷 Instagram: @shine.photostudio_id</a>
+            <a href="https://www.tiktok.com/@shine.photostudio_id">🎵 TikTok: @shine.photostudio_id</a>
+          </div>
+        </div>
+
+        <div class="contact-photo">
+          <div class="contact-note">Booking cepat via WhatsApp ✨</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Shine Photobooth. All rights reserved.
+  </footer>
 
 </body>
 </html>
